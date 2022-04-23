@@ -1,15 +1,9 @@
 const http = require("http");
 const fs = require("fs");
-const parseArgs = require("minimist");
 
-
-// Use minimist to process one argument `--port=` on the command line after `node server.js`.
-
-// Define allowed argument name 'port'.
-const port = 9000
-
-// Define a const `port` using the argument from the command line. 
-const port = 9000
+const args = require('minimist')(process.argv.slice(2))
+args['port']
+const port = args.port || 3000
 
 // Make this const default to port 3000 if there is no argument given for `--port`.
 
@@ -22,7 +16,13 @@ const port = 9000
 // If there is an error, put it on the console error, return, and exit with error code 1. 
 // Do not be nice about exiting.
 
-
+fs.readFile('./www/index.html', 'utf8' , (err, data) => {
+	if (err) {
+		console.error(err)
+		return
+		process.exit(1)
+	}
+})
 
 
 
